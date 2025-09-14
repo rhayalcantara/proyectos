@@ -1,0 +1,10 @@
+{
+       "mcpServers": {
+         "mysql_agent": {
+           "command": "/Library/Frameworks/Python.framework/Versions/3.13/bin/python3",
+           "args": [
+             "/Users/rhayalcantara/proyectos/mysql_cli_agent/mysql_mcp.py"
+           ]
+         }
+       }
+}
