@@ -1,0 +1,179 @@
+[
+    {
+        "id": "msg_1758575172",
+        "timestamp": "2025-09-22T21:06:12Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758575177",
+        "timestamp": "2025-09-22T21:06:17Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758575177",
+        "timestamp": "2025-09-22T21:06:17Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: write_file: main.py"
+        }
+    },
+    {
+        "id": "msg_1758575177",
+        "timestamp": "2025-09-22T21:06:17Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: write_file: main.py",
+            "details": "Archivo main.py creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758575182",
+        "timestamp": "2025-09-22T21:06:22Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: run_command: pip install requests"
+        }
+    },
+    {
+        "id": "msg_1758575182",
+        "timestamp": "2025-09-22T21:06:22Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: run_command: pip install requests",
+            "details": "Requirement already satisfied: requests in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (2.32.3)\nRequirement already satisfied: charset-normalizer<4,>=2 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (3.4.1)\nRequirement already satisfied: idna<4,>=2.5 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (3.10)\nRequirement already satisfied: urllib3<3,>=1.21.1 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (2.3.0)\nRequirement already satisfied: certifi>=2017.4.17 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (2024.12.14)"
+        }
+    },
+    {
+        "id": "msg_1758575187",
+        "timestamp": "2025-09-22T21:06:27Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: run_command: python main.py"
+        }
+    },
+    {
+        "id": "msg_1758575187",
+        "timestamp": "2025-09-22T21:06:27Z",
+        "source": "python-agent",
+        "type": "ERROR",
+        "payload": {
+            "message": "Fallo en la tarea: run_command: python main.py",
+            "error": "Error al ejecutar comando: /bin/sh: python: command not found"
+        }
+    },
+    {
+        "id": "msg_1758575192",
+        "timestamp": "2025-09-22T21:06:32Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: ERROR"
+        }
+    },
+    {
+        "id": "msg_1758575225",
+        "timestamp": "2025-09-22T21:07:05Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758575230",
+        "timestamp": "2025-09-22T21:07:10Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758575230",
+        "timestamp": "2025-09-22T21:07:10Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: write_file: main.py"
+        }
+    },
+    {
+        "id": "msg_1758575230",
+        "timestamp": "2025-09-22T21:07:10Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: write_file: main.py",
+            "details": "Archivo main.py creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758575235",
+        "timestamp": "2025-09-22T21:07:15Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: run_command: pip install requests"
+        }
+    },
+    {
+        "id": "msg_1758575236",
+        "timestamp": "2025-09-22T21:07:16Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: run_command: pip install requests",
+            "details": "Requirement already satisfied: requests in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (2.32.3)\nRequirement already satisfied: charset-normalizer<4,>=2 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (3.4.1)\nRequirement already satisfied: idna<4,>=2.5 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (3.10)\nRequirement already satisfied: urllib3<3,>=1.21.1 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (2.3.0)\nRequirement already satisfied: certifi>=2017.4.17 in /Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/site-packages (from requests) (2024.12.14)"
+        }
+    },
+    {
+        "id": "msg_1758575241",
+        "timestamp": "2025-09-22T21:07:21Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: run_command: python3 main.py"
+        }
+    },
+    {
+        "id": "msg_1758575241",
+        "timestamp": "2025-09-22T21:07:21Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: run_command: python3 main.py",
+            "details": "Available Models (Python):\n- nvidia_nvidia-nemotron-nano-9b-v2\n- qwen/qwen3-next-80b\n- text-embedding-nomic-embed-text-v1.5\n- qwen/qwen3-30b-a3b-2507\n- gpt-oss-120b\n- openai/gpt-oss-20b\n- qwen/qwen3-coder-30b"
+        }
+    },
+    {
+        "id": "msg_1758575246",
+        "timestamp": "2025-09-22T21:07:26Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758575251",
+        "timestamp": "2025-09-22T21:07:31Z",
+        "source": "python-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    }
+]

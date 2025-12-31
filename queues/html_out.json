@@ -1,0 +1,167 @@
+[
+    {
+        "id": "msg_1758573130",
+        "timestamp": "2025-09-22T20:32:10Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758573135",
+        "timestamp": "2025-09-22T20:32:15Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758573135",
+        "timestamp": "2025-09-22T20:32:15Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: Crear el archivo 'index.html' con el siguiente contenido:  '''<!DOCTYPE html>\n<h..."
+        }
+    },
+    {
+        "id": "msg_1758573135",
+        "timestamp": "2025-09-22T20:32:15Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: Crear el archivo 'index.html' con el siguiente contenido:  '''<!DOCTYPE html>\n<h...",
+            "details": "Archivo index.html creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573140",
+        "timestamp": "2025-09-22T20:32:20Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573145",
+        "timestamp": "2025-09-22T20:32:25Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    },
+    {
+        "id": "msg_1758573248",
+        "timestamp": "2025-09-22T20:34:08Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758573253",
+        "timestamp": "2025-09-22T20:34:13Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758573253",
+        "timestamp": "2025-09-22T20:34:13Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: write_file: index.html"
+        }
+    },
+    {
+        "id": "msg_1758573253",
+        "timestamp": "2025-09-22T20:34:13Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: write_file: index.html",
+            "details": "Archivo index.html creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573258",
+        "timestamp": "2025-09-22T20:34:18Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573263",
+        "timestamp": "2025-09-22T20:34:23Z",
+        "source": "html-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    },
+    {
+        "id": "msg_1758573897",
+        "timestamp": "2025-09-22T20:44:57Z",
+        "source": "html-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758573912",
+        "timestamp": "2025-09-22T20:45:12Z",
+        "source": "html-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758573912",
+        "timestamp": "2025-09-22T20:45:12Z",
+        "source": "html-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: write_file: index.html"
+        }
+    },
+    {
+        "id": "msg_1758573912",
+        "timestamp": "2025-09-22T20:45:12Z",
+        "source": "html-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: write_file: index.html",
+            "details": "Archivo index.html creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573917",
+        "timestamp": "2025-09-22T20:45:17Z",
+        "source": "html-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573922",
+        "timestamp": "2025-09-22T20:45:22Z",
+        "source": "html-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    }
+]

@@ -11,6 +11,7 @@ import { ProfileComponent } from '../../../profile/profile.component';
 import { StatusListComponent } from '../../../status/components/status-list/status-list.component';
 import { CreateStatusComponent } from '../../../status/components/create-status/create-status.component';
 import { StatusViewerComponent } from '../../../status/components/status-viewer/status-viewer.component';
+import { NotificationSettingsComponent } from '../../../settings/notification-settings.component';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
@@ -24,7 +25,8 @@ import { environment } from '../../../../../environments/environment';
     ProfileComponent,
     StatusListComponent,
     CreateStatusComponent,
-    StatusViewerComponent
+    StatusViewerComponent,
+    NotificationSettingsComponent
   ],
   templateUrl: './chat-list.component.html',
   styleUrl: './chat-list.component.scss'
@@ -49,6 +51,9 @@ export class ChatListComponent {
 
   // Archived chats
   showArchivedChats = signal(false);
+
+  // Notification settings
+  showNotificationSettings = signal(false);
 
   private readonly apiBaseUrl = environment.apiUrl.replace('/api', '');
 
@@ -223,5 +228,15 @@ export class ChatListComponent {
     if (this.showContextMenu()) {
       this.closeContextMenu();
     }
+  }
+
+  // ============ Notification Settings ============
+
+  openNotificationSettings(): void {
+    this.showNotificationSettings.set(true);
+  }
+
+  closeNotificationSettings(): void {
+    this.showNotificationSettings.set(false);
   }
 }

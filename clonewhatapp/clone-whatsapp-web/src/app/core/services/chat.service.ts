@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -10,13 +10,19 @@ import { Message, SendMessageRequest } from '../models';
 })
 export class ChatService {
   private readonly apiUrl = environment.apiUrl;
+  private http = inject(HttpClient);
 
   chats = signal<Chat[]>([]);
   archivedChats = signal<Chat[]>([]);
   selectedChat = signal<Chat | null>(null);
   messages = signal<Message[]>([]);
 
-  constructor(private http: HttpClient) {}
+  // Callback to notify SignalR of selected chat changes (avoids circular dependency)
+  private onChatSelectedCallback?: (chatId: string | null) => void;
+
+  setOnChatSelectedCallback(callback: (chatId: string | null) => void): void {
+    this.onChatSelectedCallback = callback;
+  }
 
   getChats(): Observable<Chat[]> {
     return this.http.get<Chat[]>(`${this.apiUrl}/chats`)
@@ -128,6 +134,8 @@ export class ChatService {
 
   selectChat(chat: Chat | null): void {
     this.selectedChat.set(chat);
+    // Notify SignalR service of chat selection for notification sound logic
+    this.onChatSelectedCallback?.(chat?.id ?? null);
     if (chat) {
       this.getMessages(chat.id).subscribe();
     } else {

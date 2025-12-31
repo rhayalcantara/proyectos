@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: '/api',
-  hubUrl: '/hubs/chat'
+  apiUrl: 'http://rhayalcantara-002-site2.ntempurl.com/api',
+  hubUrl: 'http://rhayalcantara-002-site2.ntempurl.com/hubs/chat'
 };

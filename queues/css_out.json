@@ -1,0 +1,112 @@
+[
+    {
+        "id": "msg_1758573248",
+        "timestamp": "2025-09-22T20:34:08Z",
+        "source": "css-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758573248",
+        "timestamp": "2025-09-22T20:34:08Z",
+        "source": "css-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758573248",
+        "timestamp": "2025-09-22T20:34:08Z",
+        "source": "css-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: write_file: style.css"
+        }
+    },
+    {
+        "id": "msg_1758573248",
+        "timestamp": "2025-09-22T20:34:08Z",
+        "source": "css-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: write_file: style.css",
+            "details": "Archivo style.css creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573253",
+        "timestamp": "2025-09-22T20:34:13Z",
+        "source": "css-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573258",
+        "timestamp": "2025-09-22T20:34:18Z",
+        "source": "css-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    },
+    {
+        "id": "msg_1758573897",
+        "timestamp": "2025-09-22T20:44:57Z",
+        "source": "css-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758573912",
+        "timestamp": "2025-09-22T20:45:12Z",
+        "source": "css-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758573912",
+        "timestamp": "2025-09-22T20:45:12Z",
+        "source": "css-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: write_file: style.css"
+        }
+    },
+    {
+        "id": "msg_1758573912",
+        "timestamp": "2025-09-22T20:45:12Z",
+        "source": "css-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: write_file: style.css",
+            "details": "Archivo style.css creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573917",
+        "timestamp": "2025-09-22T20:45:17Z",
+        "source": "css-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758573922",
+        "timestamp": "2025-09-22T20:45:22Z",
+        "source": "css-agent-quiz",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    }
+]
