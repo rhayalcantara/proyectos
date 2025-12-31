@@ -1,0 +1,18 @@
+{
+      "mcpServers": {
+    "github.com/upstash/context7-mcp": {
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"],
+      "disabled": false,
+      "autoApprove": []
+    },
+  
+    "ollama": {
+           "command": "python3",
+           "args": [
+           "/Users/rhayalcantara/proyectos/mcp_ollama/ollama_mcp.py"
+           ],
+           "disabled": false
+         }
+  }
+}

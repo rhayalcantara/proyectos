@@ -1,0 +1,22 @@
+# docs_agent_config.toml
+
+[identity]
+name = "docs-builder"
+role = "Generar la documentación del proyecto Sphinx."
+
+[environment]
+# Como ejemplo, usaremos un directorio hipotético. Deberás ajustarlo al real.
+working_dir = "/Users/rhayalcantara/proyectos/otro_proyecto_docs"
+
+[communication]
+# Rutas a las colas que crearemos para este agente
+orchestrator_queue = "/Users/rhayalcantara/proyectos/queues/docs_in.json"
+agent_queue = "/Users/rhayalcantara/proyectos/queues/docs_out.json"
+
+[plan]
+objective = "Limpiar builds antiguos, generar la nueva documentación HTML y notificar."
+tasks = [
+    "Ejecutar limpieza de Sphinx con 'make clean'.",
+    "Ejecutar la generación de HTML con 'make html'.",
+    "Crear un commit con la documentación generada en la carpeta 'build/html'."
+]

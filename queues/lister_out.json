@@ -1,0 +1,57 @@
+[
+    {
+        "id": "msg_1758568145",
+        "timestamp": "2025-09-22T19:09:05Z",
+        "source": "file-lister",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758568145",
+        "timestamp": "2025-09-22T19:09:05Z",
+        "source": "file-lister",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758568145",
+        "timestamp": "2025-09-22T19:09:05Z",
+        "source": "file-lister",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: Ejecutar el listado de archivos con 'ls -la'."
+        }
+    },
+    {
+        "id": "msg_1758568145",
+        "timestamp": "2025-09-22T19:09:05Z",
+        "source": "file-lister",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: Ejecutar el listado de archivos con 'ls -la'.",
+            "details": "total 40\ndrwxr-xr-x@  9 rhayalcantara  staff   288 Sep 22 15:08 .\ndrwxr-xr-x@ 10 rhayalcantara  staff   320 Sep 22 15:05 ..\n-rw-r--r--@  1 rhayalcantara  staff  5738 Sep 22 14:59 PLAN.md\n-rw-r--r--@  1 rhayalcantara  staff   645 Sep 22 15:05 agent_config.toml\ndrwxr-xr-x@  6 rhayalcantara  staff   192 Sep 22 15:07 core\n-rw-r--r--@  1 rhayalcantara  staff   476 Sep 22 15:04 main.py\ndrwxr-xr-x@  5 rhayalcantara  staff   160 Sep 22 15:09 mcp\n-rw-r--r--@  1 rhayalcantara  staff     5 Sep 22 15:08 requirements.txt\ndrwxr-xr-x@  7 rhayalcantara  staff   224 Sep 22 15:09 tools"
+        }
+    },
+    {
+        "id": "msg_1758568150",
+        "timestamp": "2025-09-22T19:09:10Z",
+        "source": "file-lister",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758568155",
+        "timestamp": "2025-09-22T19:09:15Z",
+        "source": "file-lister",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    }
+]

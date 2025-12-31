@@ -1,0 +1,37 @@
+{"python_code": "import requests
+import json
+
+SERVER_URL = "http://192.168.1.158:1234/v1"
+
+def list_models():
+    try:
+        response = requests.get(f"{SERVER_URL}/models")
+        response.raise_for_status() # Raise an exception for HTTP errors
+        models = response.json()
+        print("Available Models (Python):")
+        for model in models.get("data", []):
+            print(f"- {model.get('id')}")
+    except requests.exceptions.RequestException as e:
+        print(f"Error connecting to AI server (Python): {e}")
+    except json.JSONDecodeError:
+        print("Error: Could not decode JSON response (Python).")
+
+if __name__ == "__main__":
+    list_models()
+", "nodejs_code": "const axios = require('axios');
+
+const SERVER_URL = "http://192.168.1.158:1234/v1";
+
+async function listModels() {
+    try {
+        const response = await axios.get(`${SERVER_URL}/models`);
+        console.log("Available Models (Node.js):");
+        response.data.data.forEach(model => {
+            console.log(`- ${model.id}`);
+        });
+    } catch (error) {
+        console.error(`Error connecting to AI server (Node.js): ${error.message}`);
+    }
+}
+
+listModels();", "plan_for_python_agent": [{"action": "write_file", "filename": "main.py", "content_key": "python_code"}, {"action": "run_command", "command": "pip install requests"}, {"action": "run_command", "command": "python main.py"}], "plan_for_nodejs_agent": [{"action": "write_file", "filename": "index.js", "content_key": "nodejs_code"}, {"action": "run_command", "command": "npm init -y"}, {"action": "run_command", "command": "npm install axios"}, {"action": "run_command", "command": "node index.js"}]}

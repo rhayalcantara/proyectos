@@ -1,0 +1,114 @@
+[
+    {
+        "id": "msg_1758575172",
+        "timestamp": "2025-09-22T21:06:12Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente iniciado. Esperando comando START."
+        }
+    },
+    {
+        "id": "msg_1758575177",
+        "timestamp": "2025-09-22T21:06:17Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Comando START recibido. Iniciando plan."
+        }
+    },
+    {
+        "id": "msg_1758575177",
+        "timestamp": "2025-09-22T21:06:17Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: write_file: index.js"
+        }
+    },
+    {
+        "id": "msg_1758575177",
+        "timestamp": "2025-09-22T21:06:17Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: write_file: index.js",
+            "details": "Archivo index.js creado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758575182",
+        "timestamp": "2025-09-22T21:06:22Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: run_command: npm init -y"
+        }
+    },
+    {
+        "id": "msg_1758575182",
+        "timestamp": "2025-09-22T21:06:22Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: run_command: npm init -y",
+            "details": "Wrote to /Users/rhayalcantara/proyectos/ai_client_project/package.json:\n\n{\n  \"name\": \"ai_client_project\",\n  \"version\": \"1.0.0\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  },\n  \"keywords\": [],\n  \"author\": \"\",\n  \"license\": \"ISC\",\n  \"description\": \"\"\n}"
+        }
+    },
+    {
+        "id": "msg_1758575187",
+        "timestamp": "2025-09-22T21:06:27Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: run_command: npm install axios"
+        }
+    },
+    {
+        "id": "msg_1758575190",
+        "timestamp": "2025-09-22T21:06:30Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: run_command: npm install axios",
+            "details": "added 23 packages, and audited 24 packages in 2s\n\n6 packages are looking for funding\n  run `npm fund` for details\n\nfound 0 vulnerabilities"
+        }
+    },
+    {
+        "id": "msg_1758575195",
+        "timestamp": "2025-09-22T21:06:35Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Iniciando tarea: run_command: node index.js"
+        }
+    },
+    {
+        "id": "msg_1758575195",
+        "timestamp": "2025-09-22T21:06:35Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Tarea completada: run_command: node index.js",
+            "details": "Available Models (Node.js):\n- nvidia_nvidia-nemotron-nano-9b-v2\n- qwen/qwen3-next-80b\n- text-embedding-nomic-embed-text-v1.5\n- qwen/qwen3-30b-a3b-2507\n- gpt-oss-120b\n- openai/gpt-oss-20b\n- qwen/qwen3-coder-30b"
+        }
+    },
+    {
+        "id": "msg_1758575200",
+        "timestamp": "2025-09-22T21:06:40Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Plan completado exitosamente."
+        }
+    },
+    {
+        "id": "msg_1758575205",
+        "timestamp": "2025-09-22T21:06:45Z",
+        "source": "nodejs-agent",
+        "type": "STATUS_UPDATE",
+        "payload": {
+            "message": "Agente finalizado con estado: FINISHED"
+        }
+    }
+]
