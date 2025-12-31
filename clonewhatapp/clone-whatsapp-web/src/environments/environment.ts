@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5181/api',
-  hubUrl: 'http://localhost:5181/hubs/chat'
+  apiUrl: 'http://rhayalcantara-002-site2.ntempurl.com/api',
+  hubUrl: 'http://rhayalcantara-002-site2.ntempurl.com/hubs/chat'
 };

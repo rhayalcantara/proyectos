@@ -1,7 +1,9 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import { environment } from '../../../environments/environment';
 import { AuthService } from './auth.service';
+import { NotificationSettingsService } from './notification-settings.service';
+import { ChatService } from './chat.service';
 import { MessageSentEvent, TypingEvent, MessageStatusEvent, MessagesReadEvent, Status, StatusViewer } from '../models';
 import { Subject } from 'rxjs';
 
@@ -34,7 +36,19 @@ export class SignalRService {
   private iceCandidateCallback?: (data: any) => void;
   private callFailedCallback?: (data: any) => void;
 
-  constructor(private authService: AuthService) {}
+  // Track currently selected chat for notification sound logic
+  selectedChatId = signal<string | null>(null);
+
+  private authService = inject(AuthService);
+  private notificationSettings = inject(NotificationSettingsService);
+  private chatService = inject(ChatService);
+
+  constructor() {
+    // Register callback to track selected chat for notification sound logic
+    this.chatService.setOnChatSelectedCallback((chatId) => {
+      this.selectedChatId.set(chatId);
+    });
+  }
 
   async startConnection(): Promise<void> {
     const token = this.authService.getToken();
@@ -75,6 +89,17 @@ export class SignalRService {
 
     this.hubConnection.on('ReceiveMessage', (data: MessageSentEvent) => {
       this.messageReceived$.next(data);
+
+      // Play notification sound if conditions are met
+      const currentUser = this.authService.currentUser();
+      if (currentUser && data.mensaje && this.notificationSettings.shouldPlaySound(
+        data.mensaje.remitenteId,
+        currentUser.id,
+        this.selectedChatId(),
+        data.chatId
+      )) {
+        this.notificationSettings.playNotificationSound();
+      }
     });
 
     this.hubConnection.on('UserTyping', (data: TypingEvent) => {
