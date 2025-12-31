@@ -67,16 +67,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// CORS
+// CORS (solo necesario para desarrollo local)
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
         policy.WithOrigins(
                 "http://localhost:4200",
-                "https://localhost:4200",
-                "http://rhayalcantara-002-site2.ntempurl.com",
-                "https://rhayalcantara-002-site2.ntempurl.com"
+                "https://localhost:4200"
               )
               .AllowAnyHeader()
               .AllowAnyMethod()
@@ -100,9 +98,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
-
-// Servir archivos estáticos (fotos de perfil)
+// Servir archivos estáticos del frontend Angular
+app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseCors("AllowAngular");
@@ -112,6 +109,9 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<ChatHub>("/hubs/chat");
+
+// Fallback para Angular SPA - redirige rutas no encontradas a index.html
+app.MapFallbackToFile("index.html");
 
 // Crear base de datos si no existe
 using (var scope = app.Services.CreateScope())
