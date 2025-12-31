@@ -1,0 +1,6 @@
+@CloneWhatsApp.API_HostAddress = http://localhost:5181
+
+GET {{CloneWhatsApp.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

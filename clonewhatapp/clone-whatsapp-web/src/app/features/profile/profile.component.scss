@@ -1,0 +1,310 @@
+.profile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 100;
+}
+
+.profile-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 400px;
+  height: 100%;
+  background: #ededed;
+  z-index: 101;
+  display: flex;
+  flex-direction: column;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.profile-header {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 60px 24px 20px;
+  background: #00a884;
+  color: white;
+
+  .back-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  h2 {
+    font-size: 19px;
+    font-weight: 500;
+    margin: 0;
+  }
+}
+
+.profile-content {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+.photo-section {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0;
+  background: #ededed;
+
+  .photo-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .photo-placeholder {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00a884, #25d366);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 72px;
+      font-weight: 500;
+    }
+
+    .upload-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    .photo-actions {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+
+      .photo-action-btn {
+        width: 44px;
+        height: 44px;
+        border: none;
+        background: #00a884;
+        color: white;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: background 0.2s;
+
+        &:hover {
+          background: #008f72;
+        }
+
+        &.delete {
+          background: #dc3545;
+
+          &:hover {
+            background: #c82333;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 12px 20px;
+  margin: 0 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+// Responsive for profile panel
+@media (max-width: 768px) {
+  .profile-panel {
+    max-width: 100%;
+  }
+
+  .profile-header {
+    padding: 50px 16px 16px;
+  }
+
+  .photo-section .photo-container {
+    width: 160px;
+    height: 160px;
+
+    .photo-placeholder {
+      font-size: 60px;
+    }
+  }
+}
+
+.info-section {
+  background: white;
+  padding: 14px 30px;
+  margin-top: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  .section-label {
+    display: block;
+    font-size: 14px;
+    color: #00a884;
+    margin-bottom: 12px;
+  }
+
+  .display-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 4px 0;
+
+    &:hover:not(.readonly) {
+      .edit-icon {
+        opacity: 1;
+      }
+    }
+
+    &.readonly {
+      cursor: default;
+    }
+
+    .field-value {
+      font-size: 17px;
+      color: #111b21;
+      word-break: break-word;
+    }
+
+    .edit-icon {
+      color: #667781;
+      opacity: 0.6;
+      flex-shrink: 0;
+      margin-left: 12px;
+      transition: opacity 0.2s;
+    }
+  }
+
+  .edit-field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 2px solid #00a884;
+    padding-bottom: 8px;
+
+    input {
+      flex: 1;
+      border: none;
+      font-size: 17px;
+      color: #111b21;
+      background: none;
+      padding: 4px 0;
+
+      &:focus {
+        outline: none;
+      }
+
+      &::placeholder {
+        color: #667781;
+      }
+    }
+
+    .edit-actions {
+      display: flex;
+      gap: 8px;
+
+      button {
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+      }
+
+      .save-btn {
+        background: #00a884;
+        color: white;
+
+        &:hover {
+          background: #008f72;
+        }
+      }
+
+      .cancel-btn {
+        background: #f0f2f5;
+        color: #667781;
+
+        &:hover {
+          background: #e9edef;
+        }
+      }
+    }
+  }
+
+  .section-hint {
+    font-size: 14px;
+    color: #667781;
+    margin-top: 14px;
+    line-height: 1.4;
+  }
+}

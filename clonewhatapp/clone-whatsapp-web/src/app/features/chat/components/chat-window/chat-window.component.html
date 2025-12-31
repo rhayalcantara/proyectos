@@ -1,0 +1,338 @@
+<div class="chat-window">
+  <!-- Chat Header -->
+  <header class="chat-header">
+    <button class="back-btn" (click)="closeChat()">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path fill="currentColor" d="M12 4l1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"/>
+      </svg>
+    </button>
+
+    <div class="avatar">
+      {{ getChatName().charAt(0) }}
+    </div>
+
+    <div class="chat-info">
+      <h3>{{ getChatName() }}</h3>
+      @if (chatService.selectedChat()?.tipo === 'Individual') {
+        <span class="status">
+          @if (chatService.selectedChat()?.otroParticipante?.estaEnLinea) {
+            en línea
+          } @else {
+            últ. vez hoy
+          }
+        </span>
+      }
+    </div>
+
+    @if (chatService.selectedChat()?.tipo === 'Individual') {
+      <button class="call-btn" (click)="startVoiceCall()" title="Llamada de voz">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+        </svg>
+      </button>
+      <button class="call-btn" (click)="startVideoCall()" title="Videollamada">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+        </svg>
+      </button>
+    }
+    <button class="search-btn" (click)="toggleSearch()" title="Buscar">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path fill="currentColor" d="M15.009 13.805h-.636l-.22-.219a5.184 5.184 0 0 0 1.256-3.386 5.207 5.207 0 1 0-5.207 5.208 5.183 5.183 0 0 0 3.385-1.255l.221.22v.635l4.004 3.999 1.194-1.195-3.997-4.007zm-4.808 0a3.605 3.605 0 1 1 0-7.21 3.605 3.605 0 0 1 0 7.21z"/>
+      </svg>
+    </button>
+
+    <!-- Menú de opciones -->
+    <div class="header-menu-container">
+      <button class="menu-btn" (click)="toggleHeaderMenu()" title="Más opciones">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M12 7a2 2 0 1 0-.001-4.001A2 2 0 0 0 12 7zm0 2a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 9zm0 6a2 2 0 1 0-.001 3.999A2 2 0 0 0 12 15z"/>
+        </svg>
+      </button>
+
+      @if (showHeaderMenu()) {
+        <div class="header-dropdown-menu" (clickOutside)="closeHeaderMenu()">
+          @if (chatService.selectedChat()?.tipo === 'Individual') {
+            @if (blockStatus()?.estaBloqueado) {
+              <button (click)="unblockUser()">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11H7v-2h10v2z"/>
+                </svg>
+                Desbloquear
+              </button>
+            } @else {
+              <button (click)="blockUser()">
+                <svg viewBox="0 0 24 24" width="18" height="18">
+                  <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9A7.902 7.902 0 0 1 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1A7.902 7.902 0 0 1 20 12c0 4.42-3.58 8-8 8z"/>
+                </svg>
+                Bloquear
+              </button>
+            }
+          }
+        </div>
+      }
+    </div>
+  </header>
+
+  <!-- Panel de búsqueda -->
+  @if (isSearchOpen()) {
+    <div class="search-panel">
+      <div class="search-input-wrapper">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M15.009 13.805h-.636l-.22-.219a5.184 5.184 0 0 0 1.256-3.386 5.207 5.207 0 1 0-5.207 5.208 5.183 5.183 0 0 0 3.385-1.255l.221.22v.635l4.004 3.999 1.194-1.195-3.997-4.007zm-4.808 0a3.605 3.605 0 1 1 0-7.21 3.605 3.605 0 0 1 0 7.21z"/>
+        </svg>
+        <input
+          type="text"
+          placeholder="Buscar en el chat..."
+          [(ngModel)]="searchQuery"
+          (input)="onSearchInput()"
+          autofocus
+        />
+        <button class="close-search" (click)="toggleSearch()">✕</button>
+      </div>
+
+      @if (isSearching) {
+        <div class="search-loading">Buscando...</div>
+      }
+
+      @if (searchResults().length > 0) {
+        <div class="search-results">
+          @for (result of searchResults(); track result.id) {
+            <div class="search-result-item" (click)="scrollToMessage(result.id)">
+              <span class="result-sender">{{ result.remitenteNombre }}</span>
+              <span class="result-content">{{ result.contenido }}</span>
+              <span class="result-date">{{ result.fechaEnvio | date:'shortDate' }}</span>
+            </div>
+          }
+        </div>
+      }
+
+      @if (!isSearching && searchQuery && searchResults().length === 0) {
+        <div class="no-results">No se encontraron mensajes</div>
+      }
+    </div>
+  }
+
+  <!-- Messages -->
+  <div class="messages-container" #messagesContainer>
+    <div class="messages-wrapper">
+      @for (message of chatService.messages(); track message.id) {
+        @if (message.tipo === 'Sistema') {
+          <!-- Mensaje de sistema -->
+          <div class="system-message" [id]="'message-' + message.id">
+            <span class="system-message-content">{{ message.contenido }}</span>
+          </div>
+        } @else {
+          <div class="message" [id]="'message-' + message.id" [class.own]="isOwnMessage(message)">
+            @if (!isOwnMessage(message) && chatService.selectedChat()?.tipo === 'Grupo') {
+              <span class="sender-name">{{ message.remitenteNombre }}</span>
+            }
+
+            <div class="message-bubble" (click)="closeMessageMenu()">
+            <!-- Mensaje citado si es respuesta -->
+            @if (message.mensajeRespondido) {
+              <div class="replied-message">
+                <span class="replied-sender">{{ message.mensajeRespondido.remitenteId === authService.currentUser()?.id ? 'Tú' : 'Otro' }}</span>
+                <span class="replied-content">{{ message.mensajeRespondido.contenido || '📎 Archivo' }}</span>
+              </div>
+            }
+
+            <!-- Botón de menú -->
+            <button class="message-menu-btn" (click)="toggleMessageMenu(message.id); $event.stopPropagation()">
+              <svg viewBox="0 0 19 20" width="18" height="18">
+                <path fill="currentColor" d="M3.8 6.7l5.7 5.7 5.7-5.7 1.6 1.6-7.3 7.2-7.3-7.2 1.6-1.6z"/>
+              </svg>
+            </button>
+
+            <!-- Menú de acciones -->
+            @if (activeMessageMenu() === message.id) {
+              <div class="message-actions-menu">
+                <button (click)="replyToMessage(message)">Responder</button>
+                @if (!message.eliminadoParaTodos) {
+                  <button (click)="openForwardModal(message)">Reenviar</button>
+                }
+                @if (message.contenido) {
+                  <button (click)="copyMessage(message)">Copiar</button>
+                }
+                @if (isOwnMessage(message) && !message.eliminadoParaTodos) {
+                  <button (click)="deleteMessage(message, false)">Eliminar para mí</button>
+                  <button class="danger" (click)="deleteMessage(message, true)">Eliminar para todos</button>
+                }
+                @if (!isOwnMessage(message)) {
+                  <button (click)="deleteMessage(message, false)">Eliminar para mí</button>
+                }
+              </div>
+            }
+            @if (message.eliminadoParaTodos) {
+              <span class="deleted-message">🚫 Este mensaje fue eliminado</span>
+            } @else {
+              @if (message.tipo === 'Imagen' && message.urlArchivo) {
+                <div class="message-image" (click)="openImage(message.urlArchivo!)">
+                  <img [src]="getFileUrl(message.urlArchivo!)" [alt]="message.nombreArchivo" />
+                </div>
+              }
+              @if (message.tipo === 'Documento' && message.urlArchivo) {
+                <a class="message-document" [href]="getFileUrl(message.urlArchivo!)" target="_blank" download>
+                  <div class="doc-icon">📄</div>
+                  <div class="doc-info">
+                    <span class="doc-name">{{ message.nombreArchivo }}</span>
+                    <span class="doc-size">{{ formatFileSize(message.tamanoArchivo) }}</span>
+                  </div>
+                </a>
+              }
+              @if (message.tipo === 'Audio' && message.urlArchivo) {
+                <app-audio-player
+                  [audioUrl]="message.urlArchivo!"
+                  [duration]="message.duracionSegundos"
+                ></app-audio-player>
+              }
+              @if (message.contenido) {
+                <p>{{ message.contenido }}</p>
+              }
+            }
+
+            <span class="message-time">
+              {{ message.fechaEnvio | date:'shortTime' }}
+              @if (isOwnMessage(message)) {
+                <span class="message-status">
+                  @switch (message.estado) {
+                    @case ('Enviado') { ✓ }
+                    @case ('Entregado') { ✓✓ }
+                    @case ('Leido') { <span class="read">✓✓</span> }
+                  }
+                </span>
+              }
+            </span>
+          </div>
+        </div>
+        }
+      } @empty {
+        <div class="no-messages">
+          <p>No hay mensajes aún. ¡Envía el primero!</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Input -->
+  <footer class="message-input">
+    @if (isBlocked()) {
+      <div class="blocked-banner">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9A7.902 7.902 0 0 1 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1A7.902 7.902 0 0 1 20 12c0 4.42-3.58 8-8 8z"/>
+        </svg>
+        <span>{{ getBlockMessage() }}</span>
+        @if (blockStatus()?.estaBloqueado) {
+          <button class="unblock-btn" (click)="unblockUser()">Desbloquear</button>
+        }
+      </div>
+    } @else {
+    @if (replyingTo()) {
+      <div class="reply-bar">
+        <div class="reply-info">
+          <span class="reply-to">Respondiendo a {{ replyingTo()?.remitenteNombre }}</span>
+          <span class="reply-content">{{ replyingTo()?.contenido || '📎 Archivo' }}</span>
+        </div>
+        <button class="cancel-reply" (click)="cancelReply()">✕</button>
+      </div>
+    }
+
+    @if (audioRecorder.isRecording()) {
+      <!-- UI de grabación de audio -->
+      <div class="recording-container">
+        <button class="cancel-recording-btn" (click)="cancelRecording()" title="Cancelar">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+
+        <div class="recording-indicator">
+          <span class="recording-dot"></span>
+          <span class="recording-time">{{ audioRecorder.formatDuration(audioRecorder.recordingDuration()) }}</span>
+        </div>
+
+        <div class="recording-waveform">
+          @for (i of [1,2,3,4,5,6,7,8]; track i) {
+            <div class="wave-bar"></div>
+          }
+        </div>
+
+        <button class="send-recording-btn" (click)="stopAndSendRecording()" title="Enviar">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"/>
+          </svg>
+        </button>
+      </div>
+    } @else {
+      <!-- UI normal de entrada -->
+      <div class="input-container">
+        <label class="attach-btn" title="Adjuntar archivo">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M1.816 15.556v.002c0 1.502.584 2.912 1.646 3.972s2.472 1.647 3.974 1.647a5.58 5.58 0 0 0 3.972-1.645l9.547-9.548c.769-.768 1.147-1.767 1.058-2.817-.079-.968-.548-1.927-1.319-2.698-1.594-1.592-4.068-1.711-5.517-.262l-7.916 7.915c-.881.881-.792 2.25.214 3.261.959.958 2.423 1.053 3.263.215l5.511-5.512c.28-.28.267-.722.053-.936l-.244-.244c-.191-.191-.567-.349-.957.04l-5.506 5.506c-.18.18-.635.127-.976-.214-.098-.097-.576-.613-.213-.973l7.915-7.917c.818-.817 2.267-.699 3.23.262.5.501.802 1.1.849 1.685.051.573-.156 1.111-.589 1.543l-9.547 9.549a3.97 3.97 0 0 1-2.829 1.171 3.975 3.975 0 0 1-2.83-1.173 3.973 3.973 0 0 1-1.172-2.828c0-1.071.415-2.076 1.172-2.83l7.209-7.211c.157-.157.264-.579.028-.814L11.5 4.36a.572.572 0 0 0-.834.018l-7.205 7.207a5.577 5.577 0 0 0-1.645 3.971z"/>
+          </svg>
+          <input type="file" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.zip" (change)="onFileSelected($event)" hidden />
+        </label>
+
+        <input
+          type="text"
+          placeholder="Escribe un mensaje"
+          [(ngModel)]="newMessage"
+          (keydown)="onKeyDown($event)"
+        />
+
+        @if (newMessage.trim() || selectedFile) {
+          <button class="send-btn" (click)="sendMessage()">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor" d="M1.101 21.757L23.8 12.028 1.101 2.3l.011 7.912 13.623 1.816-13.623 1.817-.011 7.912z"/>
+            </svg>
+          </button>
+        } @else {
+          <button class="mic-btn" (click)="startRecording()" title="Grabar mensaje de voz">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor" d="M11.999 14.942c2.001 0 3.531-1.53 3.531-3.531V4.35c0-2.001-1.53-3.531-3.531-3.531S8.469 2.35 8.469 4.35v7.061c0 2.001 1.53 3.531 3.53 3.531zm6.238-3.53c0 3.531-2.942 6.002-6.237 6.002s-6.237-2.471-6.237-6.002H3.761c0 4.001 3.178 7.297 7.061 7.885v3.884h2.354v-3.884c3.884-.588 7.061-3.884 7.061-7.885h-2z"/>
+            </svg>
+          </button>
+        }
+      </div>
+    }
+
+    @if (selectedFile) {
+      <div class="file-preview">
+        <span class="file-name">📎 {{ selectedFile.name }}</span>
+        <button class="remove-file" (click)="removeFile()">✕</button>
+      </div>
+    }
+
+    @if (isUploading) {
+      <div class="upload-progress">
+        <div class="progress-bar"></div>
+        <span>Enviando...</span>
+      </div>
+    }
+    }
+  </footer>
+</div>
+
+<!-- Modal de reenvío -->
+@if (showForwardModal()) {
+  <div class="forward-modal-overlay" (click)="closeForwardModal()">
+    <div class="forward-modal" (click)="$event.stopPropagation()">
+      <div class="forward-modal-header">
+        <h3>Reenviar mensaje a</h3>
+        <button class="close-modal" (click)="closeForwardModal()">✕</button>
+      </div>
+      <div class="forward-modal-content">
+        @for (chat of getAvailableChats(); track chat.id) {
+          <div class="forward-chat-item" (click)="forwardToChat(chat.id)">
+            <div class="forward-chat-avatar">
+              {{ getChatDisplayName(chat).charAt(0) }}
+            </div>
+            <span class="forward-chat-name">{{ getChatDisplayName(chat) }}</span>
+          </div>
+        } @empty {
+          <p class="no-chats">No hay otros chats disponibles</p>
+        }
+      </div>
+    </div>
+  </div>
+}

@@ -1,0 +1,135 @@
+<div class="modal-overlay" (click)="onOverlayClick($event)">
+  <div class="modal-content">
+    <!-- Header -->
+    <header class="modal-header">
+      <button class="back-btn" (click)="goBack()">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8-8-8z" transform="rotate(180 12 12)"/>
+        </svg>
+      </button>
+      <h3>
+        @switch (mode()) {
+          @case ('select') { Nuevo estado }
+          @case ('text') { Estado de texto }
+          @case ('image') { Estado con foto }
+        }
+      </h3>
+    </header>
+
+    <!-- Content -->
+    <div class="modal-body">
+      @switch (mode()) {
+        @case ('select') {
+          <div class="mode-selection">
+            <button class="mode-option" (click)="selectMode('text')">
+              <div class="mode-icon text-icon">
+                <svg viewBox="0 0 24 24" width="32" height="32">
+                  <path fill="currentColor" d="M2.5 4v3h5v12h3V7h5V4h-13zm19 5h-9v3h3v7h3v-7h3V9z"/>
+                </svg>
+              </div>
+              <span class="mode-label">Texto</span>
+              <span class="mode-desc">Escribe un estado con fondo de color</span>
+            </button>
+
+            <button class="mode-option" (click)="selectMode('image')">
+              <div class="mode-icon image-icon">
+                <svg viewBox="0 0 24 24" width="32" height="32">
+                  <path fill="currentColor" d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
+                </svg>
+              </div>
+              <span class="mode-label">Foto</span>
+              <span class="mode-desc">Comparte una imagen como estado</span>
+            </button>
+          </div>
+        }
+
+        @case ('text') {
+          <div class="text-editor" [style.background]="selectedColor()">
+            <textarea
+              #textInput
+              [(ngModel)]="textContent"
+              placeholder="Escribe un estado..."
+              maxlength="700"
+              [disabled]="isSubmitting()"
+            ></textarea>
+            <div class="char-count">{{ textContent().length }}/700</div>
+          </div>
+
+          <div class="color-picker">
+            @for (color of colors; track color) {
+              <button
+                class="color-option"
+                [style.background]="color"
+                [class.selected]="selectedColor() === color"
+                (click)="selectColor(color)"
+              ></button>
+            }
+          </div>
+
+          <button
+            class="submit-btn"
+            [disabled]="!textContent().trim() || isSubmitting()"
+            (click)="submitTextStatus()"
+          >
+            @if (isSubmitting()) {
+              <span class="spinner"></span>
+              Publicando...
+            } @else {
+              <svg viewBox="0 0 24 24" width="24" height="24">
+                <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+              Publicar
+            }
+          </button>
+        }
+
+        @case ('image') {
+          <input
+            type="file"
+            #fileInput
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+
+          @if (imagePreview()) {
+            <div class="image-preview">
+              <img [src]="imagePreview()" alt="Preview" />
+            </div>
+
+            <div class="caption-input">
+              <input
+                type="text"
+                [(ngModel)]="imageCaption"
+                placeholder="Agregar un pie de foto..."
+                maxlength="200"
+                [disabled]="isSubmitting()"
+              />
+            </div>
+
+            <button
+              class="submit-btn"
+              [disabled]="isSubmitting()"
+              (click)="submitImageStatus()"
+            >
+              @if (isSubmitting()) {
+                <span class="spinner"></span>
+                Publicando...
+              } @else {
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="currentColor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+                Publicar
+              }
+            </button>
+          } @else {
+            <div class="loading-image">
+              <span class="spinner"></span>
+              <p>Selecciona una imagen</p>
+            </div>
+          }
+        }
+      }
+    </div>
+  </div>
+</div>

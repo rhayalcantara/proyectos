@@ -1,0 +1,94 @@
+<div class="status-list-container">
+  <!-- Mi estado -->
+  <div class="my-status-section">
+    <div class="my-status" (click)="statusService.myStatuses().estados.length > 0 ? onViewMyStatuses() : onCreateStatus()">
+      <div class="avatar-wrapper">
+        @if (getProfileImage()) {
+          <img [src]="getProfileImage()" alt="Mi foto" class="avatar-img" />
+        } @else {
+          <div class="avatar">
+            {{ authService.currentUser()?.nombre?.charAt(0) || 'U' }}
+          </div>
+        }
+        @if (statusService.myStatuses().estados.length === 0) {
+          <div class="add-status-icon" (click)="$event.stopPropagation(); onCreateStatus()">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+          </div>
+        }
+      </div>
+      <div class="status-info">
+        <span class="status-title">Mi estado</span>
+        @if (statusService.myStatuses().estados.length > 0) {
+          <span class="status-time">
+            {{ formatTime(statusService.myStatuses().estados[0].fechaCreacion) }}
+            @if (statusService.myStatuses().totalVistas > 0) {
+              <span class="views-count">{{ statusService.myStatuses().totalVistas }} vistas</span>
+            }
+          </span>
+        } @else {
+          <span class="status-hint">Toca para agregar estado</span>
+        }
+      </div>
+    </div>
+
+    @if (statusService.myStatuses().estados.length > 0) {
+      <button class="add-more-btn" (click)="onCreateStatus()" title="Agregar estado">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+        </svg>
+      </button>
+    }
+  </div>
+
+  <!-- Actualizaciones recientes -->
+  @if (statusService.contactsStatuses().length > 0) {
+    <div class="status-section">
+      <h4 class="section-title">Actualizaciones recientes</h4>
+
+      @for (contact of statusService.contactsStatuses(); track contact.usuarioId) {
+        <div
+          class="status-item"
+          [class.all-viewed]="contact.todosVistos"
+          (click)="onViewContactStatuses(contact)"
+        >
+          <div class="avatar-ring" [class.viewed]="contact.todosVistos">
+            <svg class="ring-progress" viewBox="0 0 50 50">
+              @for (segment of contact.estados; track $index; let i = $index) {
+                <circle
+                  class="ring-segment"
+                  [class.viewed]="segment.vioPorMi"
+                  cx="25"
+                  cy="25"
+                  r="22"
+                  fill="none"
+                  stroke-width="2"
+                  [attr.stroke-dasharray]="getSegmentDasharray(contact.estados.length)"
+                  [attr.stroke-dashoffset]="getSegmentOffset(contact.estados.length, i)"
+                />
+              }
+            </svg>
+            @if (getContactImage(contact)) {
+              <img [src]="getContactImage(contact)" alt="" class="avatar-img" />
+            } @else {
+              <div class="avatar">
+                {{ contact.usuarioNombre.charAt(0) }}
+              </div>
+            }
+          </div>
+
+          <div class="status-info">
+            <span class="contact-name">{{ contact.usuarioNombre }}</span>
+            <span class="status-time">{{ formatTime(contact.ultimaActualizacion) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="no-statuses">
+      <p>No hay actualizaciones de estado</p>
+      <p class="hint">Los estados de tus contactos aparecerán aquí</p>
+    </div>
+  }
+</div>

@@ -1,0 +1,168 @@
+<div class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <header class="modal-header">
+      <button class="back-btn" (click)="closeModal()">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M12 4l1.4 1.4L7.8 11H20v2H7.8l5.6 5.6L12 20l-8-8 8-8z"/>
+        </svg>
+      </button>
+      <h2>Nuevo chat</h2>
+    </header>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button
+        [class.active]="activeTab === 'contacts'"
+        (click)="activeTab = 'contacts'"
+      >
+        Contactos
+      </button>
+      <button
+        [class.active]="activeTab === 'group'"
+        (click)="activeTab = 'group'"
+      >
+        Nuevo Grupo
+      </button>
+      <button
+        [class.active]="activeTab === 'add'"
+        (click)="activeTab = 'add'"
+      >
+        Agregar
+      </button>
+    </div>
+
+    <!-- Messages -->
+    @if (errorMessage) {
+      <div class="message error">{{ errorMessage }}</div>
+    }
+    @if (successMessage) {
+      <div class="message success">{{ successMessage }}</div>
+    }
+
+    <!-- Content -->
+    <div class="modal-body">
+      @if (activeTab === 'contacts') {
+        <div class="contacts-list">
+          @for (contact of contactService.contacts(); track contact.id) {
+            <div class="contact-item" (click)="startChat(contact)">
+              <div class="avatar">
+                {{ (contact.nombrePersonalizado || contact.nombre).charAt(0) }}
+              </div>
+              <div class="contact-info">
+                <span class="name">{{ contact.nombrePersonalizado || contact.nombre }}</span>
+                <span class="status">{{ contact.estado }}</span>
+              </div>
+            </div>
+          } @empty {
+            <div class="empty-state">
+              <p>No tienes contactos aún</p>
+              <button (click)="activeTab = 'add'">Agregar contacto</button>
+            </div>
+          }
+        </div>
+      } @else if (activeTab === 'group') {
+        <div class="create-group-form">
+          <div class="form-group">
+            <label>Nombre del grupo *</label>
+            <input
+              type="text"
+              [(ngModel)]="groupName"
+              placeholder="Nombre del grupo"
+              maxlength="100"
+            />
+          </div>
+          <div class="form-group">
+            <label>Descripción (opcional)</label>
+            <textarea
+              [(ngModel)]="groupDescription"
+              placeholder="Descripción del grupo"
+              maxlength="500"
+              rows="2"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Participantes ({{ selectedContacts.size }} seleccionados)</label>
+            @if (selectedContacts.size > 0) {
+              <div class="selected-preview">
+                {{ getSelectedContactNames() }}
+              </div>
+            }
+          </div>
+
+          <div class="contacts-list selectable">
+            @for (contact of contactService.contacts(); track contact.id) {
+              <div
+                class="contact-item"
+                [class.selected]="isContactSelected(contact)"
+                (click)="toggleContactSelection(contact)"
+              >
+                <div class="checkbox">
+                  @if (isContactSelected(contact)) {
+                    <svg viewBox="0 0 24 24" width="20" height="20">
+                      <path fill="#00a884" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                    </svg>
+                  }
+                </div>
+                <div class="avatar">
+                  {{ (contact.nombrePersonalizado || contact.nombre).charAt(0) }}
+                </div>
+                <div class="contact-info">
+                  <span class="name">{{ contact.nombrePersonalizado || contact.nombre }}</span>
+                  <span class="status">{{ contact.estado }}</span>
+                </div>
+              </div>
+            } @empty {
+              <div class="empty-state">
+                <p>Necesitas al menos un contacto para crear un grupo</p>
+                <button (click)="activeTab = 'add'">Agregar contacto</button>
+              </div>
+            }
+          </div>
+
+          <button
+            class="btn-primary create-group-btn"
+            (click)="createGroup()"
+            [disabled]="!groupName.trim() || selectedContacts.size === 0 || isLoading"
+          >
+            @if (isLoading) {
+              <span class="spinner"></span>
+            } @else {
+              Crear Grupo
+            }
+          </button>
+        </div>
+      } @else {
+        <div class="add-contact-form">
+          <div class="form-group">
+            <label>Número de teléfono</label>
+            <input
+              type="tel"
+              [(ngModel)]="newContactPhone"
+              placeholder="+1234567890"
+            />
+          </div>
+          <div class="form-group">
+            <label>Nombre (opcional)</label>
+            <input
+              type="text"
+              [(ngModel)]="newContactName"
+              placeholder="Nombre del contacto"
+            />
+          </div>
+          <button
+            class="btn-primary"
+            (click)="addContact()"
+            [disabled]="!newContactPhone.trim() || isLoading"
+          >
+            @if (isLoading) {
+              <span class="spinner"></span>
+            } @else {
+              Agregar contacto
+            }
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>

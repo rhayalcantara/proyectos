@@ -1,0 +1,142 @@
+/* Tema Claro (default) */
+:root {
+  /* Fondos */
+  --bg-app: #f0f2f5;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f0f2f5;
+  --bg-chat: #efeae2;
+  --bg-chat-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%23d1d7db' fill-opacity='0.4'/%3E%3C/svg%3E");
+
+  /* Texto */
+  --text-primary: #111b21;
+  --text-secondary: #667781;
+  --text-muted: #8696a0;
+
+  /* Colores de acento */
+  --accent: #00a884;
+  --accent-hover: #06cf9c;
+  --danger: #ea0038;
+
+  /* Bordes */
+  --border-color: #e9edef;
+  --border-light: rgba(0, 0, 0, 0.08);
+
+  /* Burbujas de mensaje */
+  --bubble-own: #d9fdd3;
+  --bubble-other: #ffffff;
+  --bubble-system: rgba(255, 255, 255, 0.9);
+
+  /* Input */
+  --input-bg: #f0f2f5;
+  --input-bg-active: #ffffff;
+
+  /* Header */
+  --header-bg: #f0f2f5;
+
+  /* Hover */
+  --hover-bg: #f5f6f6;
+
+  /* Sombras */
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+
+  /* Iconos */
+  --icon-color: #54656f;
+  --icon-color-active: #00a884;
+
+  /* Estados de mensaje */
+  --check-color: #53bdeb;
+
+  /* Modal overlay */
+  --overlay-bg: rgba(0, 0, 0, 0.4);
+}
+
+/* Tema Oscuro */
+[data-theme="dark"] {
+  /* Fondos */
+  --bg-app: #0b141a;
+  --bg-primary: #111b21;
+  --bg-secondary: #202c33;
+  --bg-chat: #0b141a;
+  --bg-chat-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5L35 15L45 15L37 22L40 32L30 26L20 32L23 22L15 15L25 15Z' fill='%231e2a30' fill-opacity='0.6'/%3E%3C/svg%3E");
+
+  /* Texto */
+  --text-primary: #e9edef;
+  --text-secondary: #8696a0;
+  --text-muted: #667781;
+
+  /* Colores de acento */
+  --accent: #00a884;
+  --accent-hover: #06cf9c;
+  --danger: #f15c6d;
+
+  /* Bordes */
+  --border-color: #222d34;
+  --border-light: rgba(255, 255, 255, 0.08);
+
+  /* Burbujas de mensaje */
+  --bubble-own: #005c4b;
+  --bubble-other: #202c33;
+  --bubble-system: rgba(32, 44, 51, 0.9);
+
+  /* Input */
+  --input-bg: #2a3942;
+  --input-bg-active: #2a3942;
+
+  /* Header */
+  --header-bg: #202c33;
+
+  /* Hover */
+  --hover-bg: #2a3942;
+
+  /* Sombras */
+  --shadow-light: rgba(0, 0, 0, 0.2);
+  --shadow-medium: rgba(0, 0, 0, 0.3);
+
+  /* Scrollbar */
+  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+
+  /* Iconos */
+  --icon-color: #aebac1;
+  --icon-color-active: #00a884;
+
+  /* Estados de mensaje */
+  --check-color: #53bdeb;
+
+  /* Modal overlay */
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  background: var(--bg-app);
+  color: var(--text-primary);
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html, body {
+  height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}

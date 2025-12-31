@@ -1,0 +1,124 @@
+.audio-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  min-width: 200px;
+  max-width: 320px;
+}
+
+.play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: #25d366;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: #128c7e;
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.waveform-container {
+  flex: 1;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.waveform {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+  width: 100%;
+}
+
+.bar {
+  flex: 1;
+  min-width: 3px;
+  max-width: 6px;
+  background: #b3b3b3;
+  border-radius: 2px;
+  transition: background-color 0.1s;
+
+  &.played {
+    background: #25d366;
+  }
+}
+
+.time-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 11px;
+  color: #667781;
+  min-width: 32px;
+
+  .current-time {
+    font-weight: 500;
+  }
+
+  .duration {
+    opacity: 0.7;
+  }
+}
+
+.speed-btn {
+  padding: 4px 8px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #667781;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.15);
+  }
+}
+
+// Estilos para mensajes propios (burbujas verdes)
+:host-context(.own-message) {
+  .audio-player {
+    background: rgba(255, 255, 255, 0.15);
+  }
+
+  .bar {
+    background: rgba(255, 255, 255, 0.5);
+
+    &.played {
+      background: white;
+    }
+  }
+
+  .time-info {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .speed-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}

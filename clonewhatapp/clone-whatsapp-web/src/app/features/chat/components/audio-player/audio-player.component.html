@@ -1,0 +1,38 @@
+<div class="audio-player">
+  <!-- Play/Pause Button -->
+  <button class="play-btn" (click)="togglePlay()">
+    @if (isPlaying()) {
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path fill="currentColor" d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+      </svg>
+    } @else {
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path fill="currentColor" d="M8 5v14l11-7z"/>
+      </svg>
+    }
+  </button>
+
+  <!-- Waveform / Progress -->
+  <div class="waveform-container" (click)="seek($event)">
+    <div class="waveform">
+      @for (bar of getWaveformBars(); track $index) {
+        <div
+          class="bar"
+          [style.height.%]="bar"
+          [class.played]="($index / 30) * 100 <= progress()"
+        ></div>
+      }
+    </div>
+  </div>
+
+  <!-- Time Display -->
+  <div class="time-info">
+    <span class="current-time">{{ formatTime(currentTime()) }}</span>
+    <span class="duration">{{ formatTime(totalDuration()) }}</span>
+  </div>
+
+  <!-- Speed Button -->
+  <button class="speed-btn" (click)="changeSpeed()">
+    {{ playbackRate() }}x
+  </button>
+</div>

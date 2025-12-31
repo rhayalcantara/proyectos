@@ -1,0 +1,28 @@
+<div class="chat-layout" [class.chat-open]="chatService.selectedChat()">
+  <aside class="sidebar">
+    <app-chat-list />
+  </aside>
+
+  <main class="chat-main">
+    @if (chatService.selectedChat()) {
+      <app-chat-window />
+    } @else {
+      <div class="no-chat-selected">
+        <div class="welcome">
+          <img src="https://web.whatsapp.com/img/intro-connection-light_c98cc75f2aa905314d74f95d668f5884.png" alt="WhatsApp" />
+          <h2>WhatsApp Web Clone</h2>
+          <p>Envía y recibe mensajes sin necesidad de mantener tu teléfono conectado.</p>
+        </div>
+      </div>
+    }
+  </main>
+</div>
+
+<!-- Call overlays -->
+@if (callService.isInCall() && callService.isIncoming()) {
+  <app-incoming-call />
+}
+
+@if (callService.isInCall() && !callService.isIncoming()) {
+  <app-active-call />
+}

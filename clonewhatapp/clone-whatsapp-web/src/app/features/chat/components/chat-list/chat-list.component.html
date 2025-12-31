@@ -1,0 +1,295 @@
+<div class="chat-list-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="user-info" (click)="openProfile()" title="Ver perfil">
+      @if (getUserProfileImage()) {
+        <img [src]="getUserProfileImage()" alt="Mi foto" class="avatar-img" />
+      } @else {
+        <div class="avatar">
+          {{ authService.currentUser()?.nombre?.charAt(0) || 'U' }}
+        </div>
+      }
+    </div>
+    <div class="actions">
+      <!-- Theme Toggle -->
+      <button class="icon-btn" [title]="themeService.isDarkMode() ? 'Modo claro' : 'Modo oscuro'" (click)="themeService.toggleTheme()">
+        @if (themeService.isDarkMode()) {
+          <!-- Sun icon for light mode -->
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 0 0-1.41 0 .996.996 0 0 0 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 0 0 0-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 0 0 0-1.41.996.996 0 0 0-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>
+          </svg>
+        } @else {
+          <!-- Moon icon for dark mode -->
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+        }
+      </button>
+
+      @if (activeTab() === 'status') {
+        <button class="icon-btn" title="Nuevo estado" (click)="openCreateStatus()">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M19.005 3.175H4.674C3.642 3.175 3 3.789 3 4.821V21.02l3.544-3.514h12.461c1.033 0 2.064-1.06 2.064-2.093V4.821c-.001-1.032-1.032-1.646-2.064-1.646zm-4.989 9.869H7.041V11.1h6.975v1.944zm3-4H7.041V7.1h9.975v1.944z"/>
+          </svg>
+        </button>
+      } @else {
+        <button class="icon-btn" title="Nuevo chat" (click)="openNewChat()">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M19.005 3.175H4.674C3.642 3.175 3 3.789 3 4.821V21.02l3.544-3.514h12.461c1.033 0 2.064-1.06 2.064-2.093V4.821c-.001-1.032-1.032-1.646-2.064-1.646zm-4.989 9.869H7.041V11.1h6.975v1.944zm3-4H7.041V7.1h9.975v1.944z"/>
+          </svg>
+        </button>
+      }
+      <button class="icon-btn" title="Cerrar sesión" (click)="logout()">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="currentColor" d="M16 13v-2H7V8l-5 4 5 4v-3h9z"/>
+          <path fill="currentColor" d="M20 3H8a2 2 0 0 0-2 2v4h2V5h12v14H8v-4H6v4a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button
+      class="tab"
+      [class.active]="activeTab() === 'chats'"
+      (click)="setActiveTab('chats')"
+    >
+      Chats
+    </button>
+    <button
+      class="tab"
+      [class.active]="activeTab() === 'status'"
+      (click)="setActiveTab('status')"
+    >
+      Estados
+    </button>
+  </div>
+
+  @if (activeTab() === 'chats') {
+    <!-- Search -->
+    <div class="search-container">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path fill="#54656f" d="M15.009 13.805h-.636l-.22-.219a5.184 5.184 0 0 0 1.256-3.386 5.207 5.207 0 1 0-5.207 5.208 5.183 5.183 0 0 0 3.385-1.255l.221.22v.635l4.004 3.999 1.194-1.195-3.997-4.007zm-4.808 0a3.605 3.605 0 1 1 0-7.21 3.605 3.605 0 0 1 0 7.21z"/>
+        </svg>
+        <input
+          type="text"
+          placeholder="Buscar o empezar un chat nuevo"
+          [(ngModel)]="searchQuery"
+        />
+      </div>
+    </div>
+
+    <!-- Chat List -->
+    <div class="chats-list" (click)="onDocumentClick($event)">
+      @for (chat of chatService.chats(); track chat.id) {
+        <div
+          class="chat-item"
+          [class.active]="chatService.selectedChat()?.id === chat.id"
+          (click)="selectChat(chat)"
+          (contextmenu)="onChatContextMenu($event, chat)"
+        >
+          <div class="avatar">
+            {{ getChatName(chat).charAt(0) }}
+          </div>
+
+          <div class="chat-info">
+            <div class="chat-header">
+              <span class="chat-name">
+                {{ getChatName(chat) }}
+                @if (chat.silenciado) {
+                  <svg class="muted-icon" viewBox="0 0 24 24" width="16" height="16" title="Silenciado">
+                    <path fill="currentColor" d="M12 4L9.91 6.09L12 8.18M4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.95L19.73 21L21 19.73L12 10.73M19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.62 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12M16.5 12C16.5 10.23 15.5 8.71 14 7.97V10.18L16.45 12.63C16.5 12.43 16.5 12.21 16.5 12Z"/>
+                  </svg>
+                }
+              </span>
+              @if (chat.ultimoMensaje) {
+                <span class="chat-time">
+                  {{ chat.ultimoMensaje.fechaEnvio | date:'shortTime' }}
+                </span>
+              }
+            </div>
+
+            <div class="chat-preview">
+              <span class="last-message">{{ getLastMessagePreview(chat) }}</span>
+              @if (chat.mensajesNoLeidos > 0) {
+                <span class="unread-badge">{{ chat.mensajesNoLeidos }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="no-chats">
+          <p>No tienes conversaciones aún</p>
+          <button class="start-chat-btn" (click)="openNewChat()">
+            Iniciar nuevo chat
+          </button>
+        </div>
+      }
+
+      <!-- Archived Chats Section -->
+      @if (chatService.archivedChats().length > 0 || showArchivedChats()) {
+        <div class="archived-section">
+          <div class="archived-header" (click)="toggleArchivedChats()">
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z"/>
+            </svg>
+            <span>Chats archivados</span>
+            <span class="archived-count">{{ chatService.archivedChats().length }}</span>
+            <svg class="chevron" [class.rotated]="showArchivedChats()" viewBox="0 0 24 24" width="20" height="20">
+              <path fill="currentColor" d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+          </div>
+
+          @if (showArchivedChats()) {
+            <div class="archived-list">
+              @for (chat of chatService.archivedChats(); track chat.id) {
+                <div
+                  class="chat-item archived"
+                  [class.active]="chatService.selectedChat()?.id === chat.id"
+                  (click)="selectChat(chat)"
+                >
+                  <div class="avatar">
+                    {{ getChatName(chat).charAt(0) }}
+                  </div>
+
+                  <div class="chat-info">
+                    <div class="chat-header">
+                      <span class="chat-name">
+                        {{ getChatName(chat) }}
+                        @if (chat.silenciado) {
+                          <svg class="muted-icon" viewBox="0 0 24 24" width="16" height="16">
+                            <path fill="currentColor" d="M12 4L9.91 6.09L12 8.18M4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.95L19.73 21L21 19.73L12 10.73M19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.62 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12M16.5 12C16.5 10.23 15.5 8.71 14 7.97V10.18L16.45 12.63C16.5 12.43 16.5 12.21 16.5 12Z"/>
+                          </svg>
+                        }
+                      </span>
+                      @if (chat.ultimoMensaje) {
+                        <span class="chat-time">
+                          {{ chat.ultimoMensaje.fechaEnvio | date:'shortTime' }}
+                        </span>
+                      }
+                    </div>
+
+                    <div class="chat-preview">
+                      <span class="last-message">{{ getLastMessagePreview(chat) }}</span>
+                      <button class="unarchive-btn" (click)="unarchiveChat(chat); $event.stopPropagation()" title="Desarchivar">
+                        <svg viewBox="0 0 24 24" width="18" height="18">
+                          <path fill="currentColor" d="M20.55 5.22l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.15.55L3.46 5.22C3.17 5.57 3 6.01 3 6.5V19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.49-.17-.93-.45-1.28zM12 9.5l5.5 5.5H14v2h-4v-2H6.5L12 9.5zM5.12 5l.82-1h12l.93 1H5.12z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              }
+            </div>
+          }
+        </div>
+      }
+    </div>
+  } @else {
+    <!-- Status List -->
+    <app-status-list
+      (openCreateStatus)="openCreateStatus()"
+      (openViewer)="openStatusViewer($event)"
+      (openMyStatuses)="openMyStatuses()"
+    />
+  }
+</div>
+
+<!-- New Chat Modal -->
+@if (showNewChatModal()) {
+  <app-new-chat-modal (close)="closeNewChatModal()" />
+}
+
+<!-- Profile Panel -->
+@if (showProfilePanel()) {
+  <app-profile (close)="closeProfile()" />
+}
+
+<!-- Create Status Modal -->
+@if (showCreateStatus()) {
+  <app-create-status (close)="closeCreateStatus()" />
+}
+
+<!-- Status Viewer -->
+@if (showStatusViewer() && selectedContactForViewer()) {
+  <app-status-viewer
+    [contact]="selectedContactForViewer()!"
+    (close)="closeStatusViewer()"
+  />
+}
+
+<!-- Context Menu -->
+@if (showContextMenu() && contextMenuChat()) {
+  <div
+    class="context-menu-overlay"
+    (click)="closeContextMenu()"
+  ></div>
+  <div
+    class="context-menu"
+    [style.left.px]="contextMenuPosition().x"
+    [style.top.px]="contextMenuPosition().y"
+  >
+    @if (contextMenuChat()!.silenciado) {
+      <button class="context-menu-item" (click)="unmuteChat(contextMenuChat()!)">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <span>Quitar silencio</span>
+      </button>
+    } @else {
+      <button class="context-menu-item" (click)="openMuteModal(contextMenuChat()!)">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path fill="currentColor" d="M12 4L9.91 6.09L12 8.18M4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.95L19.73 21L21 19.73L12 10.73M19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.62 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12M16.5 12C16.5 10.23 15.5 8.71 14 7.97V10.18L16.45 12.63C16.5 12.43 16.5 12.21 16.5 12Z"/>
+        </svg>
+        <span>Silenciar</span>
+      </button>
+    }
+    <button class="context-menu-item" (click)="archiveChat(contextMenuChat()!)">
+      <svg viewBox="0 0 24 24" width="20" height="20">
+        <path fill="currentColor" d="M20.54 5.23l-1.39-1.68C18.88 3.21 18.47 3 18 3H6c-.47 0-.88.21-1.16.55L3.46 5.23C3.17 5.57 3 6.02 3 6.5V19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6.5c0-.48-.17-.93-.46-1.27zM12 17.5L6.5 12H10v-2h4v2h3.5L12 17.5zM5.12 5l.81-1h12l.94 1H5.12z"/>
+      </svg>
+      <span>Archivar</span>
+    </button>
+  </div>
+}
+
+<!-- Mute Modal -->
+@if (showMuteModal() && chatToMute()) {
+  <div class="modal-overlay" (click)="closeMuteModal()">
+    <div class="mute-modal" (click)="$event.stopPropagation()">
+      <div class="mute-modal-header">
+        <h3>Silenciar notificaciones</h3>
+        <button class="close-btn" (click)="closeMuteModal()">
+          <svg viewBox="0 0 24 24" width="24" height="24">
+            <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="mute-modal-body">
+        <p>¿Por cuánto tiempo deseas silenciar este chat?</p>
+        <div class="mute-options">
+          <button class="mute-option" (click)="muteChat('8h')">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor" d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+            </svg>
+            <span>8 horas</span>
+          </button>
+          <button class="mute-option" (click)="muteChat('1w')">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor" d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm-8 4H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z"/>
+            </svg>
+            <span>1 semana</span>
+          </button>
+          <button class="mute-option" (click)="muteChat('always')">
+            <svg viewBox="0 0 24 24" width="24" height="24">
+              <path fill="currentColor" d="M12 4L9.91 6.09L12 8.18M4.27 3L3 4.27L7.73 9H3V15H7L12 20V13.27L16.25 17.52C15.58 18.04 14.83 18.45 14 18.7V20.77C15.38 20.45 16.63 19.82 17.68 18.95L19.73 21L21 19.73L12 10.73M19 12C19 12.94 18.8 13.82 18.46 14.64L19.97 16.15C20.62 14.91 21 13.5 21 12C21 7.72 18 4.14 14 3.23V5.29C16.89 6.15 19 8.83 19 12M16.5 12C16.5 10.23 15.5 8.71 14 7.97V10.18L16.45 12.63C16.5 12.43 16.5 12.21 16.5 12Z"/>
+            </svg>
+            <span>Siempre</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
