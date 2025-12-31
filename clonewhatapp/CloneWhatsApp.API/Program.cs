@@ -72,7 +72,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins("http://localhost:4200",                           
+                           "https://localhost:4200",
+                           "http://rhayalcantara-002-site2.ntempurl.com",
+                           "https://rhayalcantara-002-site2.ntempurl.com",
+                           "http://rhayalcantara-002-site1.ntempurl.com",
+                           "https://rhayalcantara-002-site1.ntempurl.com"                             
+                           )
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
