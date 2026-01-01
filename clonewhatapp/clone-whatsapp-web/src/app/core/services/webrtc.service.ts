@@ -6,6 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class WebRTCService {
   private peerConnection: RTCPeerConnection | null = null;
   private localStream: MediaStream | null = null;
+  private pendingIceCandidates: string[] = [];
 
   remoteStream = signal<MediaStream | null>(null);
   localVideoEnabled = signal<boolean>(true);
@@ -33,6 +34,7 @@ export class WebRTCService {
     };
 
     this.peerConnection.ontrack = (event) => {
+      console.log('Remote stream recibido:', event.streams[0]?.getTracks().length, 'tracks');
       this.remoteStream.set(event.streams[0]);
     };
 
@@ -91,6 +93,9 @@ export class WebRTCService {
     const offer = JSON.parse(sdpOffer);
     await this.peerConnection.setRemoteDescription(new RTCSessionDescription(offer));
 
+    // Procesar ICE candidates que llegaron antes de tener peerConnection
+    await this.processPendingIceCandidates();
+
     // Crear answer
     const answer = await this.peerConnection.createAnswer();
     await this.peerConnection.setLocalDescription(answer);
@@ -106,7 +111,11 @@ export class WebRTCService {
   }
 
   async addIceCandidate(candidateStr: string): Promise<void> {
-    if (!this.peerConnection) return;
+    if (!this.peerConnection) {
+      console.log('ICE candidate recibido antes de peerConnection, encolando...');
+      this.pendingIceCandidates.push(candidateStr);
+      return;
+    }
 
     try {
       const candidate = JSON.parse(candidateStr);
@@ -114,6 +123,23 @@ export class WebRTCService {
     } catch (error) {
       console.error('Error adding ICE candidate:', error);
     }
+  }
+
+  private async processPendingIceCandidates(): Promise<void> {
+    if (this.pendingIceCandidates.length === 0) return;
+
+    console.log(`Procesando ${this.pendingIceCandidates.length} ICE candidates pendientes...`);
+
+    for (const candidateStr of this.pendingIceCandidates) {
+      try {
+        const candidate = JSON.parse(candidateStr);
+        await this.peerConnection?.addIceCandidate(new RTCIceCandidate(candidate));
+      } catch (error) {
+        console.error('Error procesando ICE candidate pendiente:', error);
+      }
+    }
+
+    this.pendingIceCandidates = [];
   }
 
   toggleVideo(): void {
@@ -158,6 +184,9 @@ export class WebRTCService {
     this.localVideoEnabled.set(true);
     this.localAudioEnabled.set(true);
     this.onIceCandidate = null;
+
+    // Limpiar cola de ICE candidates pendientes
+    this.pendingIceCandidates = [];
   }
 
   async checkPermissions(): Promise<{ audio: boolean; video: boolean }> {

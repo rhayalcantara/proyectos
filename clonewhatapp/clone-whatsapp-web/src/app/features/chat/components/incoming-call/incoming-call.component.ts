@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CallService } from '../../../../core/services/call.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-incoming-call',
@@ -10,6 +11,8 @@ import { CallService } from '../../../../core/services/call.service';
   styleUrl: './incoming-call.component.scss'
 })
 export class IncomingCallComponent {
+  private apiBaseUrl = environment.apiUrl.replace('/api', '');
+
   constructor(public callService: CallService) {}
 
   get callerName(): string {
@@ -17,7 +20,10 @@ export class IncomingCallComponent {
   }
 
   get callerPhoto(): string | undefined {
-    return this.callService.callState().callerPhoto;
+    const photo = this.callService.callState().callerPhoto;
+    if (!photo) return undefined;
+    if (photo.startsWith('http')) return photo;
+    return `${this.apiBaseUrl}${photo}`;
   }
 
   get isVideo(): boolean {

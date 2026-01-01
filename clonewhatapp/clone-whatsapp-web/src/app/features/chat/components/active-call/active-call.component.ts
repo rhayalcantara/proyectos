@@ -22,6 +22,7 @@ export class ActiveCallComponent implements AfterViewInit, OnDestroy {
     effect(() => {
       const remoteStream = this.webrtcService.remoteStream();
       if (remoteStream && this.remoteVideoRef?.nativeElement) {
+        console.log('Effect: Asignando remote stream al video');
         this.remoteVideoRef.nativeElement.srcObject = remoteStream;
       }
     });
@@ -32,6 +33,13 @@ export class ActiveCallComponent implements AfterViewInit, OnDestroy {
     const localStream = this.webrtcService.getLocalStream2();
     if (localStream && this.localVideoRef?.nativeElement) {
       this.localVideoRef.nativeElement.srcObject = localStream;
+    }
+
+    // Configurar video remoto si ya está disponible
+    const remoteStream = this.webrtcService.remoteStream();
+    if (remoteStream && this.remoteVideoRef?.nativeElement) {
+      console.log('ngAfterViewInit: Asignando remote stream al video');
+      this.remoteVideoRef.nativeElement.srcObject = remoteStream;
     }
   }
 
