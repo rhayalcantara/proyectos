@@ -114,6 +114,13 @@ app.UseAuthorization();
 app.MapControllers();
 app.MapHub<ChatHub>("/hubs/chat");
 
+// Fallback para Angular SPA - redirige rutas no encontradas a index.html
+var indexPath = Path.Combine(app.Environment.WebRootPath ?? "wwwroot", "index.html");
+if (File.Exists(indexPath))
+{
+    app.MapFallbackToFile("index.html");
+}
+
 // Crear base de datos si no existe
 using (var scope = app.Services.CreateScope())
 {
