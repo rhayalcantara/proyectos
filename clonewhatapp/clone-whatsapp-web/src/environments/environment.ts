@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:5139/api',
-  hubUrl: 'http://localhost:5139/hubs/chat'
+  apiUrl: 'https://192.168.1.170:7231/api',
+  hubUrl: 'https://192.168.1.170:7231/hubs/chat'
 };

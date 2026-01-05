@@ -72,7 +72,13 @@
                   "maximumError": "16kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
             },
             "development": {
               "optimization": false,
@@ -84,6 +90,12 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "ssl": true,
+            "sslKey": "../certs/key.pem",
+            "sslCert": "../certs/cert.pem",
+            "host": "0.0.0.0"
+          },
           "configurations": {
             "production": {
               "buildTarget": "clone-whatsapp-web:build:production"
