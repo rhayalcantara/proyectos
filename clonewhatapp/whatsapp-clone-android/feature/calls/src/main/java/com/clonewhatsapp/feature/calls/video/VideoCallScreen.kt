@@ -28,7 +28,7 @@ import androidx.compose.material.icons.filled.CallEnd
 import androidx.compose.material.icons.filled.FlipCameraAndroid
 import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material.icons.filled.MicOff
-import androidx.compose.material.icons.filled.MinimizeOutlined
+import androidx.compose.material.icons.filled.CloseFullscreen
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Videocam
 import androidx.compose.material.icons.filled.VideocamOff
@@ -352,7 +352,7 @@ private fun TopCallBar(
 
         IconButton(onClick = onMinimize) {
             Icon(
-                imageVector = Icons.Filled.MinimizeOutlined,
+                imageVector = Icons.Filled.CloseFullscreen,
                 contentDescription = "Minimizar",
                 tint = Color.White,
                 modifier = Modifier.size(24.dp)

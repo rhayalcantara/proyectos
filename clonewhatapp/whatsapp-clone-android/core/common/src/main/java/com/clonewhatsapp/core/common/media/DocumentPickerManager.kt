@@ -27,7 +27,7 @@ data class PickedDocument(
  * Crea un launcher para seleccionar documentos del dispositivo usando
  * la API [ActivityResultContracts.OpenDocument].
  *
- * Acepta todos los tipos de archivo (*\/*) y extrae la informacion del
+ * Acepta todos los tipos de archivo y extrae la informacion del
  * documento seleccionado (nombre, tamano, tipo MIME) usando el ContentResolver.
  *
  * @param onDocumentPicked callback invocado con la informacion del documento seleccionado

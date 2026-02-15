@@ -51,6 +51,10 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
+    // Glance (Widgets)
+    implementation(libs.glance.appwidget)
+    implementation(libs.glance.material3)
+
     // Testing
     testImplementation(libs.junit)
     debugImplementation(libs.compose.ui.tooling)

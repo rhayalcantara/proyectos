@@ -6,9 +6,11 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.clonewhatsapp.feature.auth.login.LoginEvent
 import com.clonewhatsapp.feature.auth.login.LoginScreen
 import com.clonewhatsapp.feature.auth.login.LoginViewModel
@@ -30,7 +32,7 @@ fun AppNavigation() {
         navController = navController,
         startDestination = Routes.Splash
     ) {
-        composable<Routes.Splash> {
+        composable(Routes.Splash) {
             val viewModel: SplashViewModel = hiltViewModel()
             val isLoggedIn by viewModel.isLoggedIn.collectAsState()
 
@@ -49,7 +51,7 @@ fun AppNavigation() {
             )
         }
 
-        composable<Routes.Login> {
+        composable(Routes.Login) {
             val viewModel: LoginViewModel = hiltViewModel()
             val state by viewModel.state.collectAsState()
 
@@ -76,7 +78,7 @@ fun AppNavigation() {
             )
         }
 
-        composable<Routes.Register> {
+        composable(Routes.Register) {
             val viewModel: RegisterViewModel = hiltViewModel()
             val state by viewModel.state.collectAsState()
 
@@ -107,18 +109,21 @@ fun AppNavigation() {
             )
         }
 
-        composable<Routes.Main> {
+        composable(Routes.Main) {
             MainScreen(
                 onChatClick = { chatId ->
-                    navController.navigate(Routes.Chat(chatId = chatId))
+                    navController.navigate(Routes.chatRoute(chatId))
                 },
                 onNewChatClick = {
-                    // TODO: Navegación a pantalla de contactos para nuevo chat
+                    // TODO: Navegacion a pantalla de contactos para nuevo chat
                 }
             )
         }
 
-        composable<Routes.Chat> {
+        composable(
+            route = Routes.Chat,
+            arguments = listOf(navArgument("chatId") { type = NavType.StringType })
+        ) {
             val viewModel: ChatWindowViewModel = hiltViewModel()
             val state by viewModel.state.collectAsStateWithLifecycle()
 

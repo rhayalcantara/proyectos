@@ -38,7 +38,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import coil3.compose.AsyncImage
 import com.clonewhatsapp.core.ui.theme.WhatsAppDarkGreen
 import com.clonewhatsapp.core.ui.theme.WhatsAppTealGreen
 import com.clonewhatsapp.domain.model.CallState

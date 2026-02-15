@@ -32,6 +32,7 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:common"))
+    implementation(project(":core:database"))
     implementation(project(":domain"))
 
     // Compose
@@ -49,6 +50,9 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
+
+    // Google Play Services - Location
+    implementation(libs.play.services.location)
 
     // Coil - Image loading
     implementation(libs.coil.compose)

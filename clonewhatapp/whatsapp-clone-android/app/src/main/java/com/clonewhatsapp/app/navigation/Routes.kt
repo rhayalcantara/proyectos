@@ -1,14 +1,16 @@
 package com.clonewhatsapp.app.navigation
 
-import kotlinx.serialization.Serializable
+object Routes {
+    const val Splash = "splash"
+    const val Login = "login"
+    const val Register = "register"
+    const val Main = "main"
+    const val Chat = "chat/{chatId}"
+    const val Profile = "profile/{userId}"
+    const val Call = "call/{contactId}/{isVideo}"
+    const val Settings = "settings"
 
-sealed interface Routes {
-    @Serializable data object Splash : Routes
-    @Serializable data object Login : Routes
-    @Serializable data object Register : Routes
-    @Serializable data object Main : Routes
-    @Serializable data class Chat(val chatId: String) : Routes
-    @Serializable data class Profile(val userId: String) : Routes
-    @Serializable data class Call(val contactId: String, val isVideo: Boolean) : Routes
-    @Serializable data object Settings : Routes
+    fun chatRoute(chatId: String) = "chat/$chatId"
+    fun profileRoute(userId: String) = "profile/$userId"
+    fun callRoute(contactId: String, isVideo: Boolean) = "call/$contactId/$isVideo"
 }

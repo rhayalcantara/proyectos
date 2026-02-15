@@ -37,6 +37,10 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -60,8 +64,9 @@ dependencies {
     implementation(libs.signalr)
 
     // Firebase Cloud Messaging
-    implementation(platform(libs.firebase.bom))
-    implementation(libs.firebase.messaging)
+    // TODO: Descomentar cuando se configure Firebase (agregar google-services.json en app/)
+    // implementation(platform(libs.firebase.bom))
+    // implementation(libs.firebase.messaging)
 
     // Hilt
     implementation(libs.hilt.android)
@@ -75,6 +80,12 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    // Security
+    implementation(libs.security.crypto)
+
+    // WebRTC
+    implementation(libs.webrtc.stream)
 
     // Utils
     implementation(libs.timber)

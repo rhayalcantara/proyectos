@@ -366,7 +366,8 @@ class RecentChatsWidget : GlanceAppWidget() {
      * @param context Contexto de la aplicacion
      * @param chats Lista de chats a guardar (se toman los primeros 5)
      */
-    companion object GuardarChats {
+    // Funciones auxiliares para guardar chats en SharedPreferences
+    object GuardarChats {
         fun guardarChatsRecientes(context: Context, chats: List<ChatRecienteWidget>) {
             val preferencias = context.getSharedPreferences(
                 "widget_chats_recientes",

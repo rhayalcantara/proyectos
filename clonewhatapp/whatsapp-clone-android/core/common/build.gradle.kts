@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
 }
@@ -37,11 +38,24 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
+
+    buildFeatures {
+        compose = true
+    }
 }
 
 dependencies {
+    // Modules
+    implementation(project(":domain"))
+
     // AndroidX
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.activity.compose)
+
+    // Compose
+    implementation(platform(libs.compose.bom))
+    implementation(libs.compose.ui)
+    implementation(libs.compose.material3)
 
     // Security - EncryptedSharedPreferences y MasterKey
     implementation(libs.security.crypto)
@@ -56,6 +70,9 @@ dependencies {
     // Coroutines
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
+
+    // Media3 / ExoPlayer
+    implementation(libs.media3.exoplayer)
 
     // Utils
     implementation(libs.timber)

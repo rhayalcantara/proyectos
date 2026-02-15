@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":feature:contacts"))
     implementation(project(":feature:profile"))
     implementation(project(":feature:settings"))
+    implementation(project(":feature:main"))
 
     // AndroidX
     implementation(libs.androidx.core.ktx)

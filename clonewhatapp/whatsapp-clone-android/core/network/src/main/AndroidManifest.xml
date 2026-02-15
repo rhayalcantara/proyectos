@@ -30,6 +30,7 @@
         </service>
 
         <!-- Servicio FCM para notificaciones push -->
+        <!-- TODO: Descomentar cuando se configure Firebase
         <service
             android:name=".push.MyFirebaseMessagingService"
             android:exported="false">
@@ -37,6 +38,7 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        -->
 
         <!-- Receptor de respuestas directas desde notificaciones -->
         <receiver

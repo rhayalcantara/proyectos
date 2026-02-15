@@ -96,7 +96,7 @@ object CallNotificationBuilder {
             )
             .setSound(
                 Settings.System.DEFAULT_RINGTONE_URI,
-                AudioAttributes.AUDIO_CONTENT_TYPE_SONIFICATION
+                AudioAttributes.CONTENT_TYPE_SONIFICATION
             )
             .setVibrate(longArrayOf(0, 1000, 500, 1000, 500, 1000))
             .build()

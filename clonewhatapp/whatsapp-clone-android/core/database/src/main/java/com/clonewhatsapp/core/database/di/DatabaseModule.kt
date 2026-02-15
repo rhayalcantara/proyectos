@@ -6,6 +6,7 @@ import com.clonewhatsapp.core.database.WhatsAppDatabase
 import com.clonewhatsapp.core.database.dao.ChatDao
 import com.clonewhatsapp.core.database.dao.MensajeDao
 import com.clonewhatsapp.core.database.dao.MensajePendienteDao
+import com.clonewhatsapp.core.database.dao.SearchDao
 import com.clonewhatsapp.core.database.dao.UsuarioDao
 import dagger.Module
 import dagger.Provides
@@ -50,5 +51,10 @@ object DatabaseModule {
     @Provides
     fun provideMensajePendienteDao(database: WhatsAppDatabase): MensajePendienteDao {
         return database.mensajePendienteDao()
+    }
+
+    @Provides
+    fun provideSearchDao(database: WhatsAppDatabase): SearchDao {
+        return database.searchDao()
     }
 }

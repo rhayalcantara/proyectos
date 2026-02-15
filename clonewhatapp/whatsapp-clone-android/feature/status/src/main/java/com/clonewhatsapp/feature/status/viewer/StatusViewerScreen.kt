@@ -170,7 +170,8 @@ fun StatusViewerScreen(
                     )
 
                     // Caption en la parte inferior si existe
-                    if (!estadoActual.contenido.isNullOrBlank()) {
+                    val contenido = estadoActual.contenido
+                    if (!contenido.isNullOrBlank()) {
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -184,7 +185,7 @@ fun StatusViewerScreen(
                                 .padding(bottom = 48.dp)
                         ) {
                             Text(
-                                text = estadoActual.contenido,
+                                text = contenido,
                                 style = MaterialTheme.typography.bodyLarge,
                                 color = Color.White,
                                 textAlign = TextAlign.Center,

@@ -49,6 +49,10 @@ dependencies {
     ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
 
+    // Coil - Carga de imágenes
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
+
     // WebRTC
     implementation(libs.webrtc.stream)
 

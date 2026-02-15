@@ -7,6 +7,7 @@ import com.clonewhatsapp.core.database.converter.Converters
 import com.clonewhatsapp.core.database.dao.ChatDao
 import com.clonewhatsapp.core.database.dao.MensajeDao
 import com.clonewhatsapp.core.database.dao.MensajePendienteDao
+import com.clonewhatsapp.core.database.dao.SearchDao
 import com.clonewhatsapp.core.database.dao.UsuarioDao
 import com.clonewhatsapp.core.database.entity.ChatEntity
 import com.clonewhatsapp.core.database.entity.ChatParticipantEntity
@@ -35,4 +36,6 @@ abstract class WhatsAppDatabase : RoomDatabase() {
     abstract fun usuarioDao(): UsuarioDao
 
     abstract fun mensajePendienteDao(): MensajePendienteDao
+
+    abstract fun searchDao(): SearchDao
 }

@@ -48,6 +48,9 @@ dependencies {
     // Security - EncryptedSharedPreferences para preferencias biometricas
     implementation(libs.security.crypto)
 
+    // Logging
+    implementation(libs.timber)
+
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
