@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application>
+        <service
+            android:name="com.clonewhatsapp.core.network.signalr.SignalRService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false" />
+
+        <service
+            android:name=".webrtc.CallService"
+            android:foregroundServiceType="phoneCall|microphone"
+            android:exported="false" />
+
+        <service
+            android:name=".webrtc.CallConnectionService"
+            android:permission="android.permission.BIND_TELECOM_CONNECTION_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.telecom.ConnectionService" />
+            </intent-filter>
+        </service>
+
+        <!-- Servicio FCM para notificaciones push -->
+        <service
+            android:name=".push.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <!-- Receptor de respuestas directas desde notificaciones -->
+        <receiver
+            android:name="com.clonewhatsapp.core.common.notification.DirectReplyReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.clonewhatsapp.action.RESPUESTA_DIRECTA" />
+                <action android:name="com.clonewhatsapp.action.MARCAR_LEIDO" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>

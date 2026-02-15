@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Metadatos del widget de chats recientes.
+
+    Configuracion:
+    - Ancho minimo: 250dp (4 columnas aprox.)
+    - Alto minimo: 180dp (3 filas aprox.)
+    - Modo de redimension: horizontal y vertical
+    - Periodo de actualizacion: 30 minutos (1800000 ms)
+    - Descripcion: Widget que muestra los chats mas recientes de WhatsApp
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="250dp"
+    android:minHeight="180dp"
+    android:targetCellWidth="4"
+    android:targetCellHeight="3"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="home_screen"
+    android:description="@string/widget_chats_recientes_descripcion"
+    android:previewLayout="@layout/widget_chats_recientes_preview" />
