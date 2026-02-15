@@ -51,6 +51,9 @@ biometric = "1.2.0-alpha05"
 paging = "3.3.5"
 pagingCompose = "3.3.5"
 
+# Coroutines
+coroutines = "1.9.0"
+
 # Testing
 junit = "4.13.2"
 junitExt = "1.2.1"
@@ -141,6 +144,10 @@ paging-compose = { module = "androidx.paging:paging-compose", version.ref = "pag
 
 # Utils
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+# Coroutines
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }

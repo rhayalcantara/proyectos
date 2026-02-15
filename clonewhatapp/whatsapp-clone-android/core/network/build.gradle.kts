@@ -73,7 +73,8 @@ dependencies {
     ksp(libs.hilt.work.compiler)
 
     // Coroutines
-    implementation(libs.coroutines.test)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
 
     // Utils
     implementation(libs.timber)
